@@ -1,0 +1,9 @@
+apiVersion: v1
+name: techtrends
+description: techtrends project deployment manifest for Udacity nd064
+keywords:
+  - techtrends
+version: 1.0.0
+maintainers:
+  - name: elsidy
+    email: sanchitjaiswal.117@gmail.com
