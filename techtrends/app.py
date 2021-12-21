@@ -44,16 +44,16 @@ def index():
 def post(post_id):
     post = get_post(post_id)
     if post is None:
-        log_message(f"Article with id {post_id}, does not exist.")        
+        logger_error_msg(f"Article with id {post_id}, does not exist.")        
         return render_template('404.html'), 404
     else:
-        log_message(f"Retrieved article with id {post_id} and title {post['title']}")
+        logger_info_msg(f"Retrieved article with id {post_id} and title {post['title']}")
         return render_template('post.html', post=post)
 
 # Define the About Us page
 @app.route('/about')
 def about():
-    log_message("About page rendered")
+    logger_info_msg("About page rendered")
     return render_template('about.html')
 
 # Define the post creation functionality 
@@ -72,7 +72,7 @@ def create():
             connection.commit()
             connection.close()
             
-            log_message(f"Article {title} created.")
+            logger_info_msg(f"Article {title} created.")
 
             return redirect(url_for('index'))
 
@@ -104,8 +104,11 @@ def metrics():
     return response
 
 # Helper function for logging
-def log_message(msg):
+def logger_info_msg(msg):
     app.logger.info(msg)
+
+def logger_error_msg(msg):
+    app.logger.error(msg)
 
 # start the application on port 3111
 if __name__ == "__main__":
