@@ -44,10 +44,10 @@ def index():
 def post(post_id):
     post = get_post(post_id)
     if post is None:
-        logger_error_msg(f"Article with id {post_id}, does not exist.")        
+        logger_error_msg('Article with id "{}", does not exist.'.format(post_id))        
         return render_template('404.html'), 404
     else:
-        logger_info_msg(f"Retrieved article with id {post_id} and title {post['title']}")
+        logger_info_msg('Retrieved article with title "{}"'.format(post['title']))
         return render_template('post.html', post=post)
 
 # Define the About Us page
@@ -72,7 +72,7 @@ def create():
             connection.commit()
             connection.close()
             
-            logger_info_msg(f"Article {title} created.")
+            logger_info_msg('Article "{}" created.'.format(title))
 
             return redirect(url_for('index'))
 
