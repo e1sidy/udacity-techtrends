@@ -115,5 +115,9 @@ if __name__ == "__main__":
     # Configuring the level of logging parameter 
     # and format for the logs to be generated
     # logger will log to STDOUT
-    logging.basicConfig(level=logging.DEBUG, format=f'%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
+    logging.basicConfig(
+        level=logging.DEBUG, 
+        format= '[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s',
+        datefmt='%H:%M:%S')
+        
     app.run(host='0.0.0.0', port='3111')
