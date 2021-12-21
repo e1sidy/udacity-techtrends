@@ -78,6 +78,31 @@ def create():
 
     return render_template('create.html')
 
+# Hardcoded healthz endpoint
+@app.route('/healthz')
+def healthz():
+    response = app.response_class(
+        response=json.dumps({"result":"OK - healthy"}),
+        status=200,
+        mimetype='application/json')
+
+    return response
+
+@app.route('/metrics')
+def metrics():
+    connection = get_db_connection()
+    posts = connection.execute('SELECT * FROM posts').fetchall()
+    connection.close()
+    post_count = len(posts)
+
+    response = app.response_class(
+        response=json.dumps({"db_connection_count": connection_count, "post_count": post_count}),
+        status=200,
+        mimetype='application/json'
+    
+    )
+    return response
+
 # Helper function for logging
 def log_message(msg):
     app.logger.info(msg)
